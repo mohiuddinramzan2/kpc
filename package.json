@@ -1,0 +1,26 @@
+{
+  "name": "kpc",
+  "version": "1.0.0",
+  "description": "সার্কুলার নিটিং মেশিনের প্রোডাকশন (কাউন্টার), নিডেল সংখ্যা ও ফিটার সংখ্যা হিসাব করার জন্য একটি সিম্পল, ফাস্ট, মোবাইল-ফ্রেন্ডলি ওয়েব অ্যাপ। কোনো ব্যাকএন্ড/বিল্ড স্টেপ নেই — শুধু HTML, CSS আর ভ্যানিলা JavaScript, তাই GitHub Pages-এ সরাসরি চলে।",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohiuddinramzan2/kpc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mohiuddinramzan2/kpc/issues"
+  },
+  "homepage": "https://github.com/mohiuddinramzan2/kpc#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0"
+  }
+}

@@ -1,0 +1,447 @@
+/* ============================================================
+   Design tokens
+   ============================================================ */
+:root{
+  --cotton:      #EDE8DE;
+  --cotton-2:    #E3DDCC;
+  --ink:         #26241F;
+  --ink-soft:    #514D43;
+  --steel:       #6B6F6A;
+  --steel-line:  #CFC7B4;
+  --rust:        #C1552C;
+  --rust-dim:    #C1552C33;
+  --loden:       #1F3A34;
+  --loden-2:     #2C4F47;
+  --brass:       #C79A56;
+  --paper:       #F7F4EC;
+
+  --font-display:'Space Grotesk','Noto Sans Bengali',sans-serif;
+  --font-body:   'Noto Sans Bengali','Space Grotesk',sans-serif;
+  --font-mono:   'JetBrains Mono','Noto Sans Bengali',monospace;
+
+  --radius: 14px;
+  --radius-sm: 9px;
+}
+
+*{ box-sizing:border-box; }
+
+html{ -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--cotton);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.5;
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* subtle woven-cloth texture on the base layer */
+.floor{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:
+    repeating-linear-gradient(90deg, #00000006 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(0deg, #00000006 0 1px, transparent 1px 22px);
+}
+
+.app{
+  position:relative;
+  z-index:1;
+  max-width:520px;
+  margin:0 auto;
+  padding:28px 18px 60px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.app-header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:22px;
+}
+
+.mark{ flex:0 0 auto; width:52px; height:52px; }
+.mark-ring{ width:100%; height:100%; }
+.mark-ring-track{
+  fill:none; stroke:var(--steel-line); stroke-width:8;
+}
+.mark-ring-spin{
+  fill:none; stroke:var(--rust); stroke-width:8;
+  stroke-dasharray:40 210;
+  stroke-linecap:round;
+  transform-origin:50px 50px;
+  animation:spin 6s linear infinite;
+}
+
+.eyebrow{
+  margin:0 0 2px;
+  font-family:var(--font-display);
+  font-size:11.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--rust);
+  font-weight:600;
+}
+.app-header h1{
+  margin:0;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:26px;
+  color:var(--ink);
+}
+.subtitle{
+  margin:2px 0 0;
+  font-size:13px;
+  color:var(--ink-soft);
+}
+
+/* ============================================================
+   Mode switch
+   ============================================================ */
+.switch{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:var(--loden);
+  border-radius:999px;
+  padding:5px;
+  margin-bottom:20px;
+  isolation:isolate;
+}
+.switch input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.switch-btn{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:11px 8px;
+  border-radius:999px;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:13.5px;
+  color:#EDE8DEaa;
+  cursor:pointer;
+  transition:color .25s ease;
+  user-select:none;
+}
+.switch-num{
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--brass);
+  opacity:.8;
+}
+.switch-thumb{
+  position:absolute;
+  top:5px; left:5px;
+  width:calc(50% - 5px);
+  height:calc(100% - 10px);
+  background:var(--paper);
+  border-radius:999px;
+  transition:transform .28s cubic-bezier(.65,0,.35,1);
+  box-shadow:0 2px 6px #00000030;
+}
+#mode-reverse:checked ~ .switch-thumb{
+  transform:translateX(100%);
+}
+#mode-forward:checked ~ label[for="mode-forward"]{ color:var(--ink); }
+#mode-reverse:checked ~ label[for="mode-reverse"]{ color:var(--ink); }
+#mode-forward:checked ~ label[for="mode-forward"] .switch-num,
+#mode-reverse:checked ~ label[for="mode-reverse"] .switch-num{ color:var(--rust); }
+
+/* toggle visibility of mode-specific fields */
+.mode-reverse-field{ display:none; }
+body.mode-reverse .mode-forward-field{ display:none; }
+body.mode-reverse .mode-reverse-field{ display:block; }
+body.mode-reverse .dial-unit.mode-forward-field,
+body.mode-reverse .dial-label.mode-forward-field{ display:none; }
+body.mode-reverse .dial-unit.mode-reverse-field,
+body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
+
+/* ============================================================
+   Panels
+   ============================================================ */
+.panel{
+  background:var(--paper);
+  border:1px solid var(--steel-line);
+  border-radius:var(--radius);
+  padding:18px 18px 20px;
+  margin-bottom:16px;
+}
+.panel-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:14px;
+}
+.panel-head h2{
+  margin:0;
+  font-family:var(--font-display);
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.plate{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--steel);
+  border:1px solid var(--steel-line);
+  border-radius:4px;
+  padding:2px 7px;
+}
+
+.field-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.field{
+  margin-bottom:14px;
+}
+.field:last-child{ margin-bottom:0; }
+
+.field label{
+  display:block;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.unit{
+  font-weight:400;
+  color:var(--steel);
+}
+
+.field input[type="text"]{
+  width:100%;
+  padding:11px 12px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--steel-line);
+  background:#fff;
+  font-family:var(--font-mono);
+  font-size:16px;
+  font-weight:600;
+  color:var(--ink);
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input[type="text"]:focus{
+  border-color:var(--rust);
+  box-shadow:0 0 0 3px var(--rust-dim);
+}
+
+/* machine-type chips */
+.chip-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.chip-row input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.chip{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:10px 12px;
+  border-radius:var(--radius-sm);
+  border:1.5px solid var(--steel-line);
+  background:#fff;
+  cursor:pointer;
+  transition:border-color .15s ease, background .15s ease;
+}
+.chip strong{ font-size:13px; }
+.chip small{ font-family:var(--font-mono); font-size:11px; color:var(--steel); }
+#mtype-std:checked ~ label[for="mtype-std"],
+#mtype-mayer:checked ~ label[for="mtype-mayer"]{
+  border-color:var(--rust);
+  background:#fff6f1;
+}
+#mtype-std:checked ~ label[for="mtype-std"] strong,
+#mtype-mayer:checked ~ label[for="mtype-mayer"] strong{
+  color:var(--rust);
+}
+
+/* live readouts */
+.readout-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px dashed var(--steel-line);
+}
+.readout{
+  background:var(--loden);
+  border-radius:var(--radius-sm);
+  padding:12px 12px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.readout-label{
+  font-size:11px;
+  color:#EDE8DEaa;
+  font-weight:600;
+}
+.readout-value{
+  font-family:var(--font-mono);
+  font-size:20px;
+  font-weight:700;
+  color:var(--brass);
+  letter-spacing:.01em;
+}
+.readout-formula{
+  font-family:var(--font-mono);
+  font-size:10px;
+  color:#EDE8DE77;
+}
+
+/* rpm / time box */
+.rpm-box{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px dashed var(--steel-line);
+}
+.rpm-box summary{
+  cursor:pointer;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--rust);
+  list-style:none;
+}
+.rpm-box summary::-webkit-details-marker{ display:none; }
+.rpm-box summary::before{
+  content:"▸ ";
+}
+.rpm-box[open] summary::before{
+  content:"▾ ";
+}
+.rpm-box .field{ margin-top:12px; }
+.time-out{
+  margin:10px 0 0;
+  font-family:var(--font-mono);
+  font-size:13px;
+  color:var(--ink-soft);
+  min-height:1.2em;
+}
+
+/* ============================================================
+   Result dial
+   ============================================================ */
+.dial-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:18px 0 4px;
+}
+.dial{
+  position:relative;
+  width:210px;
+  height:210px;
+}
+.dial-ring{ width:100%; height:100%; transform:rotate(-90deg); }
+.dial-ring-track{
+  fill:none; stroke:var(--loden); stroke-width:10; opacity:.15;
+}
+.dial-ring-spin{
+  fill:none; stroke:var(--rust); stroke-width:10;
+  stroke-linecap:round;
+  stroke-dasharray:552.9;
+  stroke-dashoffset:552.9;
+  transition:stroke-dashoffset .5s cubic-bezier(.65,0,.35,1);
+}
+.dial-face{
+  position:absolute;
+  inset:16px;
+  border-radius:50%;
+  background:var(--loden);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  box-shadow:inset 0 2px 10px #00000055;
+}
+.dial-label{
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--brass);
+  font-weight:600;
+}
+.dial-value{
+  font-family:var(--font-mono);
+  font-size:34px;
+  font-weight:700;
+  color:var(--paper);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.01em;
+  line-height:1.2;
+}
+.dial-unit{
+  font-size:12px;
+  color:#F7F4ECaa;
+}
+.dial-note{
+  margin:14px 0 0;
+  font-size:12.5px;
+  color:var(--ink-soft);
+  text-align:center;
+  max-width:340px;
+  min-height:1.3em;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.app-footer{
+  margin-top:26px;
+  padding-top:16px;
+  border-top:1px solid var(--steel-line);
+  text-align:center;
+}
+.app-footer p{
+  margin:0;
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  color:var(--steel);
+  line-height:1.6;
+}
+
+/* ============================================================
+   Motion
+   ============================================================ */
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce){
+  .mark-ring-spin{ animation:none; }
+  .dial-ring-spin{ transition:none; }
+}
+
+/* ============================================================
+   Small screens
+   ============================================================ */
+@media (max-width:380px){
+  .app-header h1{ font-size:22px; }
+  .dial{ width:186px; height:186px; }
+  .dial-value{ font-size:29px; }
+}

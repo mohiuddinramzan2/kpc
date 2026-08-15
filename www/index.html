@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>কাউন্টার হিসাব — সার্কুলার নিটিং প্রোডাকশন ক্যালকুলেটর</title>
+<meta name="description" content="সার্কুলার নিটিং মেশিনের কাউন্টার, নিডেল ও ফিটার হিসাব করার জন্য মিনিমাল ক্যালকুলেটর।">
+<meta name="theme-color" content="#1F3A34">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22none%22 stroke=%22%23C1552C%22 stroke-width=%2210%22 stroke-dasharray=%2222 14%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="floor"></div>
+
+<main class="app">
+
+  <header class="app-header">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 100 100" class="mark-ring">
+        <circle cx="50" cy="50" r="40" class="mark-ring-track"></circle>
+        <circle cx="50" cy="50" r="40" class="mark-ring-spin"></circle>
+      </svg>
+    </div>
+    <div class="app-header-text">
+      <p class="eyebrow">সার্কুলার নিটিং মেশিন</p>
+      <h1>কাউন্টার হিসাব</h1>
+      <p class="subtitle">প্রোডাকশন, নিডেল ও ফিটার — একসাথে হিসাব করুন</p>
+    </div>
+  </header>
+
+  <!-- Mode switch -->
+  <div class="switch" role="tablist" aria-label="হিসাবের ধরন">
+    <input type="radio" name="mode" id="mode-forward" checked>
+    <label for="mode-forward" role="tab" class="switch-btn">
+      <span class="switch-num">০১</span>
+      <span>কেজি → কাউন্টার</span>
+    </label>
+    <input type="radio" name="mode" id="mode-reverse">
+    <label for="mode-reverse" role="tab" class="switch-btn">
+      <span class="switch-num">০২</span>
+      <span>কাউন্টার → কেজি</span>
+    </label>
+    <span class="switch-thumb" aria-hidden="true"></span>
+  </div>
+
+  <!-- Machine setup panel -->
+  <section class="panel" aria-labelledby="setup-title">
+    <div class="panel-head">
+      <h2 id="setup-title">মেশিন সেটআপ</h2>
+      <span class="plate">নেমপ্লেট</span>
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="dia">ডায়া <span class="unit">(ইঞ্চি)</span></label>
+        <input type="text" inputmode="decimal" id="dia" placeholder="৩০" value="30">
+      </div>
+      <div class="field">
+        <label for="gauge">গেজ <span class="unit">(GG)</span></label>
+        <input type="text" inputmode="decimal" id="gauge" placeholder="২৪" value="24">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>মেশিন টাইপ <span class="unit">(ফিটার সূত্রের জন্য)</span></label>
+      <div class="chip-row" role="radiogroup" aria-label="মেশিন টাইপ">
+        <input type="radio" name="mtype" id="mtype-std" checked>
+        <label for="mtype-std" class="chip">
+          <strong>স্ট্যান্ডার্ড</strong>
+          <small>ডায়া × ৩</small>
+        </label>
+        <input type="radio" name="mtype" id="mtype-mayer">
+        <label for="mtype-mayer" class="chip">
+          <strong>Mayer &amp; Cie</strong>
+          <small>ডায়া × ৩ + ৬</small>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="yarn">ইয়ার্ন কাউন্ট</label>
+        <input type="text" inputmode="decimal" id="yarn" placeholder="৩০" value="30">
+      </div>
+      <div class="field">
+        <label for="sl">এস.এল <span class="unit">(স্টিচ লেংথ)</span></label>
+        <input type="text" inputmode="decimal" id="sl" placeholder="২৮.৫" value="28.5">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="missfeed">মিস ফিটার <span class="unit">(যতগুলো ফিটার বাদ দিয়ে মেশিন চলছে)</span></label>
+      <input type="text" inputmode="decimal" id="missfeed" placeholder="০" value="0">
+    </div>
+
+    <!-- Live sub-readouts -->
+    <div class="readout-row">
+      <div class="readout">
+        <span class="readout-label">নিডেল সংখ্যা</span>
+        <span class="readout-value" id="out-needle">—</span>
+        <span class="readout-formula">ডায়া × গেজ × ৩.১৪</span>
+      </div>
+      <div class="readout">
+        <span class="readout-label">ফিটার (কার্যকর)</span>
+        <span class="readout-value" id="out-feeder">—</span>
+        <span class="readout-formula" id="out-feeder-formula">ডায়া × ৩</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Input panel (mode dependent) -->
+  <section class="panel" aria-labelledby="input-title">
+    <div class="panel-head">
+      <h2 id="input-title">উৎপাদন তথ্য</h2>
+    </div>
+
+    <div class="field mode-field mode-forward-field">
+      <label for="kg">কাপড়ের ওজন <span class="unit">(কেজি)</span></label>
+      <input type="text" inputmode="decimal" id="kg" placeholder="২০" value="20">
+    </div>
+
+    <div class="field mode-field mode-reverse-field">
+      <label for="counter">কাউন্টার রিডিং <span class="unit">(রাউন্ড)</span></label>
+      <input type="text" inputmode="decimal" id="counter" placeholder="১৬৪৩">
+    </div>
+
+    <details class="rpm-box">
+      <summary>উৎপাদনের সময় হিসাব করুন <span class="unit">(ঐচ্ছিক)</span></summary>
+      <div class="field">
+        <label for="rpm">মেশিন গতি <span class="unit">(RPM)</span></label>
+        <input type="text" inputmode="decimal" id="rpm" placeholder="যেমন ২২">
+      </div>
+      <p class="time-out" id="out-time"></p>
+    </details>
+  </section>
+
+  <!-- Result dial -->
+  <section class="dial-wrap" aria-live="polite">
+    <div class="dial">
+      <svg viewBox="0 0 200 200" class="dial-ring" aria-hidden="true">
+        <circle cx="100" cy="100" r="88" class="dial-ring-track"></circle>
+        <circle cx="100" cy="100" r="88" class="dial-ring-spin"></circle>
+      </svg>
+      <div class="dial-face">
+        <span class="dial-label mode-forward-field">মোট কাউন্টার</span>
+        <span class="dial-label mode-reverse-field">মোট উৎপাদন</span>
+        <span class="dial-value" id="out-result">০</span>
+        <span class="dial-unit mode-forward-field">রাউন্ড</span>
+        <span class="dial-unit mode-reverse-field">কেজি</span>
+      </div>
+    </div>
+    <p class="dial-note" id="out-note"></p>
+  </section>
+
+  <footer class="app-footer">
+    <p>সূত্র: কাউন্টার = কেজি × ১৬,৯৩৬,৫১৭ × ইয়ার্ন কাউন্ট ÷ এস.এল ÷ নিডেল ÷ কার্যকর ফিটার</p>
+  </footer>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
