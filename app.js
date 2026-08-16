@@ -3,6 +3,7 @@
 
   const CONST = 16936517;
   const RING_CIRCUMFERENCE = 552.9; // 2 * π * 88, matches the SVG dial radius
+  const TEX_FROM_NE = 590.5; // Tex = 590.5 / Ne, standard cotton-count conversion
 
   const bnDigits = "০১২৩৪৫৬৭৮৯";
 
@@ -52,6 +53,9 @@
     note: el("out-note"),
     time: el("out-time"),
     dialLabelSuffix: el("dial-label-suffix"),
+    loop: el("out-loop"),
+    tf: el("out-tf"),
+    tfNote: el("out-tf-note"),
   };
 
   const dialRing = document.querySelector(".dial-ring-spin");
@@ -102,6 +106,25 @@
 
     // ring shows how much of the machine's full feeder capacity is active
     setRing(isFinite(totalFeeder) && totalFeeder > 0 ? effectiveFeeder / totalFeeder : 0);
+
+    // --- Tightness factor: K = √Tex ÷ loop length(cm) ---
+    // Assumes "yarn count" is English cotton count (Ne) and S.L is stored in
+    // 1/10 mm units (e.g. 28.5 = 2.85 mm loop length) — the loop length is
+    // shown explicitly below so it can be sanity-checked against a measured sample.
+    if (yarn > 0 && sl > 0) {
+      const loopMm = sl / 10;
+      const loopCm = sl / 100;
+      const tex = TEX_FROM_NE / yarn;
+      const tf = Math.sqrt(tex) / loopCm;
+      outs.loop.textContent = fmt(loopMm, 2);
+      outs.tf.textContent = fmt(tf, 1);
+      outs.tfNote.textContent =
+        "রেফারেন্স হিসেবে ব্যবহার করুন — একই মেশিন/আর্টিকেলের আগের ব্যাচের K মানের সাথে তুলনা করলে সবচেয়ে বেশি কাজে দেয়। সূত্রের রেফারেন্স ভেদে সংখ্যাগত রেঞ্জ ভিন্ন হতে পারে, তাই এটিকে পরম মান হিসেবে না ধরে তুলনামূলক (relative) নির্দেশক হিসেবে দেখুন।";
+    } else {
+      outs.loop.textContent = "—";
+      outs.tf.textContent = "—";
+      outs.tfNote.textContent = "";
+    }
 
     const readyBase = isFinite(needle) && isFinite(effectiveFeeder) && sl > 0 && yarn > 0;
 
