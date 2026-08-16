@@ -26,23 +26,71 @@
       </svg>
     </div>
     <div class="app-header-text">
-      <p class="eyebrow">সার্কুলার নিটিং মেশিন</p>
-      <h1>কাউন্টার হিসাব</h1>
-      <p class="subtitle">প্রোডাকশন, নিডেল ও ফিটার — একসাথে হিসাব করুন</p>
+      <p class="eyebrow" data-i18n="eyebrow">সার্কুলার নিটিং মেশিন</p>
+      <h1 data-i18n="title">কাউন্টার হিসাব</h1>
+      <p class="subtitle" data-i18n="subtitle">প্রোডাকশন, নিডেল ও ফিটার — একসাথে হিসাব করুন</p>
     </div>
+    <button type="button" class="settings-btn" id="settings-open" aria-label="সেটিংস">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path fill="currentColor" d="M19.14 12.94a7.14 7.14 0 0 0 .06-.94 7.14 7.14 0 0 0-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.3 7.3 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.14.56-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.75 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.62-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.6.22l2.39-.96c.49.38 1.04.7 1.63.94l.36 2.54c.05.24.26.42.5.42h3.84c.24 0 .45-.18.5-.42l.36-2.54c.59-.24 1.14-.56 1.63-.94l2.39.96c.22.09.47 0 .6-.22l1.92-3.32a.5.5 0 0 0-.12-.64ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"/>
+      </svg>
+    </button>
   </header>
+
+  <!-- Settings drawer -->
+  <div class="drawer-overlay" id="settings-overlay"></div>
+  <aside class="drawer" id="settings-drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <h2 data-i18n="settings">সেটিংস</h2>
+      <button type="button" class="drawer-close" id="settings-close" aria-label="বন্ধ করুন">&times;</button>
+    </div>
+
+    <div class="drawer-section">
+      <p class="drawer-label" data-i18n="language">ভাষা</p>
+      <div class="switch small" role="tablist">
+        <input type="radio" name="lang" id="lang-bn" checked>
+        <label for="lang-bn" class="switch-btn">বাংলা</label>
+        <input type="radio" name="lang" id="lang-en">
+        <label for="lang-en" class="switch-btn">English</label>
+        <span class="switch-thumb" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <p class="drawer-label" data-i18n="theme">থিম</p>
+      <div class="switch small" role="tablist">
+        <input type="radio" name="theme" id="theme-dark" checked>
+        <label for="theme-dark" class="switch-btn" data-i18n="dark">ডার্ক</label>
+        <input type="radio" name="theme" id="theme-light">
+        <label for="theme-light" class="switch-btn" data-i18n="light">লাইট</label>
+        <span class="switch-thumb" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <p class="drawer-label" data-i18n="fontsize">ফন্ট সাইজ</p>
+      <div class="chip-row three" role="radiogroup">
+        <input type="radio" name="font" id="font-small">
+        <label for="font-small" class="chip chip-center" data-i18n="small">ছোট</label>
+        <input type="radio" name="font" id="font-medium" checked>
+        <label for="font-medium" class="chip chip-center" data-i18n="medium">মাঝারি</label>
+        <input type="radio" name="font" id="font-large">
+        <label for="font-large" class="chip chip-center" data-i18n="large">বড়</label>
+      </div>
+    </div>
+  </aside>
 
   <!-- Mode switch -->
   <div class="switch" role="tablist" aria-label="হিসাবের ধরন">
     <input type="radio" name="mode" id="mode-forward" checked>
     <label for="mode-forward" role="tab" class="switch-btn">
-      <span class="switch-num">০১</span>
-      <span>কেজি → কাউন্টার</span>
+      <span class="switch-num">01</span>
+      <span data-i18n="mode-forward">কেজি → কাউন্টার</span>
     </label>
     <input type="radio" name="mode" id="mode-reverse">
     <label for="mode-reverse" role="tab" class="switch-btn">
-      <span class="switch-num">০২</span>
-      <span>কাউন্টার → কেজি</span>
+      <span class="switch-num">02</span>
+      <span data-i18n="mode-reverse">কাউন্টার → কেজি</span>
     </label>
     <span class="switch-thumb" aria-hidden="true"></span>
   </div>
@@ -50,64 +98,64 @@
   <!-- Machine setup panel -->
   <section class="panel" aria-labelledby="setup-title">
     <div class="panel-head">
-      <h2 id="setup-title">মেশিন সেটআপ</h2>
-      <span class="plate">নেমপ্লেট</span>
+      <h2 id="setup-title" data-i18n="setup-title">মেশিন সেটআপ</h2>
+      <span class="plate" data-i18n="nameplate">নেমপ্লেট</span>
     </div>
 
     <div class="field-grid">
       <div class="field">
-        <label for="dia">ডায়া <span class="unit">(ইঞ্চি)</span></label>
-        <input type="text" inputmode="decimal" id="dia" placeholder="৩০" value="30">
+        <label for="dia"><span data-i18n="dia">ডায়া</span> <span class="unit" data-i18n="unit-inch">(ইঞ্চি)</span></label>
+        <input type="text" inputmode="decimal" id="dia" placeholder="30" value="30">
       </div>
       <div class="field">
-        <label for="gauge">গেজ <span class="unit">(GG)</span></label>
-        <input type="text" inputmode="decimal" id="gauge" placeholder="২৪" value="24">
+        <label for="gauge"><span data-i18n="gauge">গেজ</span> <span class="unit">(GG)</span></label>
+        <input type="text" inputmode="decimal" id="gauge" placeholder="24" value="24">
       </div>
     </div>
 
     <div class="field">
-      <label>মেশিন টাইপ <span class="unit">(ফিটার সূত্রের জন্য)</span></label>
+      <label><span data-i18n="mtype">মেশিন টাইপ</span> <span class="unit" data-i18n="mtype-unit">(ফিটার সূত্রের জন্য)</span></label>
       <div class="chip-row" role="radiogroup" aria-label="মেশিন টাইপ">
         <input type="radio" name="mtype" id="mtype-std" checked>
         <label for="mtype-std" class="chip">
-          <strong>স্ট্যান্ডার্ড</strong>
-          <small>ডায়া × ৩</small>
+          <strong data-i18n="standard">স্ট্যান্ডার্ড</strong>
+          <small data-i18n="dia-x3">ডায়া × ৩</small>
         </label>
         <input type="radio" name="mtype" id="mtype-mayer">
         <label for="mtype-mayer" class="chip">
           <strong>Mayer &amp; Cie</strong>
-          <small>ডায়া × ৩ + ৬</small>
+          <small data-i18n="dia-x3-6">ডায়া × ৩ + ৬</small>
         </label>
       </div>
     </div>
 
     <div class="field-grid">
       <div class="field">
-        <label for="yarn">ইয়ার্ন কাউন্ট</label>
-        <input type="text" inputmode="decimal" id="yarn" placeholder="৩০" value="30">
+        <label for="yarn" data-i18n="yarn">ইয়ার্ন কাউন্ট</label>
+        <input type="text" inputmode="decimal" id="yarn" placeholder="30" value="30">
       </div>
       <div class="field">
-        <label for="sl">এস.এল <span class="unit">(স্টিচ লেংথ)</span></label>
-        <input type="text" inputmode="decimal" id="sl" placeholder="২৮.৫" value="28.5">
+        <label for="sl"><span data-i18n="sl">এস.এল</span> <span class="unit" data-i18n="sl-unit">(স্টিচ লেংথ)</span></label>
+        <input type="text" inputmode="decimal" id="sl" placeholder="28.5" value="28.5">
       </div>
     </div>
 
     <div class="field">
-      <label for="missfeed">মিস ফিটার <span class="unit">(যতগুলো ফিটার বাদ দিয়ে মেশিন চলছে)</span></label>
-      <input type="text" inputmode="decimal" id="missfeed" placeholder="০" value="0">
+      <label for="missfeed"><span data-i18n="missfeed">মিস ফিটার</span> <span class="unit" data-i18n="missfeed-unit">(যতগুলো ফিটার বাদ দিয়ে মেশিন চলছে)</span></label>
+      <input type="text" inputmode="decimal" id="missfeed" placeholder="0" value="0">
     </div>
 
     <!-- Live sub-readouts -->
     <div class="readout-row">
       <div class="readout">
-        <span class="readout-label">নিডেল সংখ্যা</span>
+        <span class="readout-label" data-i18n="needle-count">নিডেল সংখ্যা</span>
         <span class="readout-value" id="out-needle">—</span>
-        <span class="readout-formula">ডায়া × গেজ × ৩.১৪</span>
+        <span class="readout-formula" data-i18n="needle-formula">ডায়া × গেজ × ৩.১৪</span>
       </div>
       <div class="readout">
-        <span class="readout-label">ফিটার (কার্যকর)</span>
+        <span class="readout-label" data-i18n="feeder-eff">ফিটার (কার্যকর)</span>
         <span class="readout-value" id="out-feeder">—</span>
-        <span class="readout-formula" id="out-feeder-formula">ডায়া × ৩</span>
+        <span class="readout-formula" id="out-feeder-formula" data-i18n="dia-x3">ডায়া × ৩</span>
       </div>
     </div>
   </section>
@@ -115,19 +163,19 @@
   <!-- Fabric tightness (technical) -->
   <section class="panel" aria-labelledby="tf-title">
     <div class="panel-head">
-      <h2 id="tf-title">ফেব্রিক টাইটনেস</h2>
-      <span class="plate">টেকনিক্যাল</span>
+      <h2 id="tf-title" data-i18n="tf-title">ফেব্রিক টাইটনেস</h2>
+      <span class="plate" data-i18n="technical">টেকনিক্যাল</span>
     </div>
     <div class="readout-row">
       <div class="readout">
-        <span class="readout-label">লুপ লেংথ</span>
+        <span class="readout-label" data-i18n="loop-length">লুপ লেংথ</span>
         <span class="readout-value" id="out-loop">—</span>
-        <span class="readout-formula">S.L ÷ ১০ (মিমি)</span>
+        <span class="readout-formula" data-i18n="loop-formula">S.L ÷ ১০ (মিমি)</span>
       </div>
       <div class="readout">
-        <span class="readout-label">টাইটনেস ফ্যাক্টর K</span>
+        <span class="readout-label" data-i18n="tf-label">টাইটনেস ফ্যাক্টর K</span>
         <span class="readout-value" id="out-tf">—</span>
-        <span class="readout-formula">√Tex ÷ লুপ লেংথ(cm)</span>
+        <span class="readout-formula" data-i18n="tf-formula">√Tex ÷ লুপ লেংথ(cm)</span>
       </div>
     </div>
     <p class="dial-note" id="out-tf-note"></p>
@@ -136,33 +184,33 @@
   <!-- Input panel (mode dependent) -->
   <section class="panel" aria-labelledby="input-title">
     <div class="panel-head">
-      <h2 id="input-title">উৎপাদন তথ্য</h2>
+      <h2 id="input-title" data-i18n="input-title">উৎপাদন তথ্য</h2>
     </div>
 
     <div class="field mode-field mode-forward-field">
-      <label for="kg">কাপড়ের ওজন <span class="unit">(কেজি)</span></label>
-      <input type="text" inputmode="decimal" id="kg" placeholder="২০" value="20">
+      <label for="kg"><span data-i18n="kg-label">কাপড়ের ওজন</span> <span class="unit" data-i18n="unit-kg">(কেজি)</span></label>
+      <input type="text" inputmode="decimal" id="kg" placeholder="20" value="20">
     </div>
 
     <div class="field mode-field mode-reverse-field">
-      <label for="counter">কাউন্টার রিডিং <span class="unit">(রাউন্ড)</span></label>
-      <input type="text" inputmode="decimal" id="counter" placeholder="১৬৪৩">
+      <label for="counter"><span data-i18n="counter-label">কাউন্টার রিডিং</span> <span class="unit" data-i18n="unit-round">(রাউন্ড)</span></label>
+      <input type="text" inputmode="decimal" id="counter" placeholder="1643">
     </div>
 
     <details class="rpm-box">
-      <summary>উৎপাদনের সময় হিসাব করুন <span class="unit">(ঐচ্ছিক)</span></summary>
+      <summary><span data-i18n="time-toggle">উৎপাদনের সময় হিসাব করুন</span> <span class="unit" data-i18n="optional">(ঐচ্ছিক)</span></summary>
       <div class="field">
-        <label for="rpm">মেশিন গতি <span class="unit">(RPM)</span></label>
-        <input type="text" inputmode="decimal" id="rpm" placeholder="যেমন ২২">
+        <label for="rpm"><span data-i18n="rpm-label">মেশিন গতি</span> <span class="unit">(RPM)</span></label>
+        <input type="text" inputmode="decimal" id="rpm" placeholder="e.g. 22">
       </div>
       <p class="time-out" id="out-time"></p>
     </details>
 
     <details class="rpm-box">
-      <summary>মিটার হিসাব করুন <span class="unit">(ঐচ্ছিক)</span></summary>
+      <summary><span data-i18n="meter-toggle">মিটার হিসাব করুন</span> <span class="unit" data-i18n="optional">(ঐচ্ছিক)</span></summary>
       <div class="field">
-        <label for="cpc">কোর্স পার সেমি <span class="unit">(স্পেক বা মাপা মান)</span></label>
-        <input type="text" inputmode="decimal" id="cpc" placeholder="যেমন ১৮">
+        <label for="cpc"><span data-i18n="cpc-label">কোর্স পার সেমি</span> <span class="unit" data-i18n="cpc-unit">(স্পেক বা মাপা মান)</span></label>
+        <input type="text" inputmode="decimal" id="cpc" placeholder="e.g. 18">
       </div>
       <p class="time-out" id="out-meter"></p>
     </details>
@@ -176,23 +224,23 @@
         <circle cx="100" cy="100" r="88" class="dial-ring-spin"></circle>
       </svg>
       <div class="dial-face">
-        <span class="dial-label mode-forward-field">মোট কাউন্টার</span>
-        <span class="dial-label mode-reverse-field">মোট উৎপাদন</span>
+        <span class="dial-label mode-forward-field" data-i18n="dial-total-counter">মোট কাউন্টার</span>
+        <span class="dial-label mode-reverse-field" data-i18n="dial-total-production">মোট উৎপাদন</span>
         <span class="dial-value" id="out-result">০</span>
-        <span class="dial-unit mode-forward-field">রাউন্ড</span>
-        <span class="dial-unit mode-reverse-field">কেজি</span>
+        <span class="dial-unit mode-forward-field" data-i18n="unit-round">রাউন্ড</span>
+        <span class="dial-unit mode-reverse-field" data-i18n="unit-kg-plain">কেজি</span>
       </div>
     </div>
     <p class="dial-note" id="out-note"></p>
   </section>
 
   <footer class="app-footer">
-    <p>সূত্র: কাউন্টার = কেজি × ১৬,৯৩৬,৫১৭ × ইয়ার্ন কাউন্ট ÷ এস.এল ÷ নিডেল ÷ কার্যকর ফিটার</p>
-    <p>মিটার = কাউন্টার ÷ (কোর্স পার সেমি × ১০০)</p>
+    <p data-i18n="formula-counter">সূত্র: কাউন্টার = কেজি × ১৬,৯৩৬,৫১৭ × ইয়ার্ন কাউন্ট ÷ এস.এল ÷ নিডেল ÷ কার্যকর ফিটার</p>
+    <p data-i18n="formula-meter">মিটার = কাউন্টার ÷ (কোর্স পার সেমি × ১০০)</p>
   </footer>
 
 </main>
 
 <script src="app.js"></script>
 </body>
-</html>
+  </html>
