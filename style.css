@@ -67,6 +67,25 @@ body{
   margin-bottom:22px;
 }
 
+.app-header-text{ flex:1 1 auto; min-width:0; }
+
+.settings-btn{
+  flex:0 0 auto;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:1.5px solid var(--steel-line);
+  background:var(--paper);
+  color:var(--ink-soft);
+  cursor:pointer;
+  transition:border-color .15s ease, color .15s ease, transform .2s ease;
+}
+.settings-btn:active{ transform:scale(.92); }
+.settings-btn:hover{ color:var(--rust); border-color:var(--rust); }
+
 .mark{ flex:0 0 auto; width:52px; height:52px; }
 .mark-ring{ width:100%; height:100%; }
 .mark-ring-track{
@@ -83,7 +102,7 @@ body{
 .eyebrow{
   margin:0 0 2px;
   font-family:var(--font-display);
-  font-size:11.5px;
+  font-size:0.7188rem;
   letter-spacing:.14em;
   text-transform:uppercase;
   color:var(--rust);
@@ -93,12 +112,12 @@ body{
   margin:0;
   font-family:var(--font-display);
   font-weight:700;
-  font-size:26px;
+  font-size:1.625rem;
   color:var(--ink);
 }
 .subtitle{
   margin:2px 0 0;
-  font-size:13px;
+  font-size:0.8125rem;
   color:var(--ink-soft);
 }
 
@@ -131,7 +150,7 @@ body{
   border-radius:999px;
   font-family:var(--font-display);
   font-weight:600;
-  font-size:13.5px;
+  font-size:0.8438rem;
   color:#EDE8DEaa;
   cursor:pointer;
   transition:color .25s ease;
@@ -139,7 +158,7 @@ body{
 }
 .switch-num{
   font-family:var(--font-mono);
-  font-size:11px;
+  font-size:0.6875rem;
   color:var(--brass);
   opacity:.8;
 }
@@ -189,13 +208,13 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
 .panel-head h2{
   margin:0;
   font-family:var(--font-display);
-  font-size:15px;
+  font-size:0.9375rem;
   font-weight:700;
   letter-spacing:.02em;
 }
 .plate{
   font-family:var(--font-mono);
-  font-size:10px;
+  font-size:0.625rem;
   letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--steel);
@@ -217,7 +236,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
 
 .field label{
   display:block;
-  font-size:12.5px;
+  font-size:0.7812rem;
   font-weight:600;
   color:var(--ink-soft);
   margin-bottom:6px;
@@ -234,7 +253,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
   border:1.5px solid var(--steel-line);
   background:#fff;
   font-family:var(--font-mono);
-  font-size:16px;
+  font-size:1rem;
   font-weight:600;
   color:var(--ink);
   outline:none;
@@ -267,8 +286,8 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
   cursor:pointer;
   transition:border-color .15s ease, background .15s ease;
 }
-.chip strong{ font-size:13px; }
-.chip small{ font-family:var(--font-mono); font-size:11px; color:var(--steel); }
+.chip strong{ font-size:0.8125rem; }
+.chip small{ font-family:var(--font-mono); font-size:0.6875rem; color:var(--steel); }
 #mtype-std:checked ~ label[for="mtype-std"],
 #mtype-mayer:checked ~ label[for="mtype-mayer"]{
   border-color:var(--rust);
@@ -297,20 +316,20 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
   gap:3px;
 }
 .readout-label{
-  font-size:11px;
+  font-size:0.6875rem;
   color:#EDE8DEaa;
   font-weight:600;
 }
 .readout-value{
   font-family:var(--font-mono);
-  font-size:20px;
+  font-size:1.25rem;
   font-weight:700;
   color:var(--brass);
   letter-spacing:.01em;
 }
 .readout-formula{
   font-family:var(--font-mono);
-  font-size:10px;
+  font-size:0.625rem;
   color:#EDE8DE77;
 }
 
@@ -322,7 +341,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
 }
 .rpm-box summary{
   cursor:pointer;
-  font-size:12.5px;
+  font-size:0.7812rem;
   font-weight:600;
   color:var(--rust);
   list-style:none;
@@ -338,7 +357,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
 .time-out{
   margin:10px 0 0;
   font-family:var(--font-mono);
-  font-size:13px;
+  font-size:0.8125rem;
   color:var(--ink-soft);
   min-height:1.2em;
 }
@@ -381,7 +400,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
   box-shadow:inset 0 2px 10px #00000055;
 }
 .dial-label{
-  font-size:11px;
+  font-size:0.6875rem;
   letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--brass);
@@ -389,7 +408,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
 }
 .dial-value{
   font-family:var(--font-mono);
-  font-size:34px;
+  font-size:2.125rem;
   font-weight:700;
   color:var(--paper);
   font-variant-numeric:tabular-nums;
@@ -397,12 +416,12 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
   line-height:1.2;
 }
 .dial-unit{
-  font-size:12px;
+  font-size:0.75rem;
   color:#F7F4ECaa;
 }
 .dial-note{
   margin:14px 0 0;
-  font-size:12.5px;
+  font-size:0.7812rem;
   color:var(--ink-soft);
   text-align:center;
   max-width:340px;
@@ -421,10 +440,121 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
 .app-footer p{
   margin:0;
   font-family:var(--font-mono);
-  font-size:10.5px;
+  font-size:0.6562rem;
   color:var(--steel);
   line-height:1.6;
 }
+
+/* ============================================================
+   Settings drawer
+   ============================================================ */
+.drawer-overlay{
+  position:fixed;
+  inset:0;
+  background:#000000a0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease;
+  z-index:20;
+}
+.drawer-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.drawer{
+  position:fixed;
+  top:0; right:0;
+  height:100%;
+  width:min(320px, 86vw);
+  background:var(--paper);
+  box-shadow:-8px 0 30px #00000040;
+  transform:translateX(100%);
+  transition:transform .3s cubic-bezier(.65,0,.35,1);
+  z-index:21;
+  padding:20px 18px;
+  overflow-y:auto;
+}
+.drawer.open{
+  transform:translateX(0);
+}
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.drawer-head h2{
+  margin:0;
+  font-family:var(--font-display);
+  font-size:1.0625rem;
+  font-weight:700;
+}
+.drawer-close{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:1.5px solid var(--steel-line);
+  background:#fff;
+  font-size:1.25rem;
+  line-height:1;
+  color:var(--ink-soft);
+  cursor:pointer;
+}
+
+.drawer-section{
+  margin-bottom:22px;
+}
+.drawer-label{
+  margin:0 0 8px;
+  font-size:0.7812rem;
+  font-weight:600;
+  color:var(--ink-soft);
+}
+
+.switch.small{
+  padding:4px;
+}
+.switch.small .switch-btn{
+  padding:9px 8px;
+  font-size:0.8125rem;
+}
+
+.chip-row.three{
+  grid-template-columns:1fr 1fr 1fr;
+}
+.chip-center{
+  align-items:center;
+  text-align:center;
+}
+
+/* ============================================================
+   Light theme
+   ============================================================ */
+html[data-theme="light"]{
+  --cotton:      #F6F4EE;
+  --cotton-2:    #EDEAE0;
+  --ink:         #23221D;
+  --ink-soft:    #5A574C;
+  --steel:       #8B8F87;
+  --steel-line:  #DCD5C4;
+  --paper:       #FFFFFF;
+}
+html[data-theme="light"] .switch{
+  background:var(--loden);
+}
+html[data-theme="light"] .readout,
+html[data-theme="light"] .dial-face{
+  background:var(--loden);
+}
+
+/* ============================================================
+   Font-size scaling
+   ============================================================ */
+html[data-fontsize="small"]{ font-size:14px; }
+html[data-fontsize="medium"]{ font-size:16px; }
+html[data-fontsize="large"]{ font-size:19px; }
 
 /* ============================================================
    Motion
@@ -441,7 +571,7 @@ body.mode-reverse .dial-label.mode-reverse-field{ display:inline; }
    Small screens
    ============================================================ */
 @media (max-width:380px){
-  .app-header h1{ font-size:22px; }
+  .app-header h1{ font-size:1.375rem; }
   .dial{ width:186px; height:186px; }
-  .dial-value{ font-size:29px; }
-     }
+  .dial-value{ font-size:1.8125rem; }
+   }
