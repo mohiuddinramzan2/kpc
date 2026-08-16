@@ -43,6 +43,7 @@
     kg: el("kg"),
     counter: el("counter"),
     rpm: el("rpm"),
+    cpc: el("cpc"),
   };
 
   const outs = {
@@ -56,6 +57,7 @@
     loop: el("out-loop"),
     tf: el("out-tf"),
     tfNote: el("out-tf-note"),
+    meter: el("out-meter"),
   };
 
   const dialRing = document.querySelector(".dial-ring-spin");
@@ -137,10 +139,12 @@
           ? feederWarning
           : `সঠিক মান: ${fmt(counter, 3)} রাউন্ড — মেশিনের কাউন্টারে অন্তত এই সংখ্যক রাউন্ড সেট করুন।`;
         updateTime(counter);
+        updateMeter(counter);
       } else {
         outs.result.textContent = "—";
         outs.note.textContent = feederWarning || "উপরের সব মান পূরণ করুন।";
         updateTime(NaN);
+        updateMeter(NaN);
       }
     } else {
       const counter = parseNum(inputs.counter.value);
@@ -151,10 +155,12 @@
           ? feederWarning
           : `${fmt(counter, 0)} রাউন্ড ঘুরলে আনুমানিক এই পরিমাণ কাপড় তৈরি হবে।`;
         updateTime(counter);
+        updateMeter(counter);
       } else {
         outs.result.textContent = "—";
         outs.note.textContent = feederWarning || "উপরের সব মান পূরণ করুন।";
         updateTime(NaN);
+        updateMeter(NaN);
       }
     }
   }
@@ -172,6 +178,17 @@
     if (h > 0) parts.push(`${h} ঘণ্টা`);
     parts.push(`${m} মিনিট`);
     outs.time.textContent = `আনুমানিক সময় লাগবে: ${parts.join(" ")}`;
+  }
+
+  // Meter = counter ÷ (course per cm × 100). Each machine rotation knits one course.
+  function updateMeter(counterValue) {
+    const cpc = parseNum(inputs.cpc.value);
+    if (!isFinite(counterValue) || counterValue <= 0 || !(cpc > 0)) {
+      outs.meter.textContent = "";
+      return;
+    }
+    const meters = counterValue / (cpc * 100);
+    outs.meter.textContent = `আনুমানিক দৈর্ঘ্য: ${fmt(meters, 2)} মিটার`;
   }
 
   // wire up listeners
